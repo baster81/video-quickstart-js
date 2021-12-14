@@ -21,6 +21,7 @@
             <a class="nav-link" href="/examples">More Examples</a>
           </li>
         </ul>
+        <button id="takesnapshot" class="btn btn-outline-secondary" style="margin-right:1rem;">Take Snapshot</button>
         <button class="btn btn-outline-primary" id="leave-room">Leave Room</button>
       </div>
     </nav>
@@ -29,7 +30,7 @@
         <div id="participants" class="col-xs-12 col-sm-3 col-md-2" style="text-align: center"></div>
         <div id="active-participant" class="col-xs-12 col-sm-9 col-md-10" style="text-align: center">
           <div class="participant main">
-            <video autoplay playsinline muted></video>
+            <video id="videoinputpreview" autoplay playsinline muted></video>
           </div>
         </div>
       </div>
@@ -114,6 +115,15 @@
           </div>
         </div>
       </div>
+      
+      <div class="card">
+        <div class="card-block">
+          <h4 class="card-title">Snapshot</h4>
+          <canvas class="snapshot-canvas hidden"></canvas>
+          <img class="snapshot-img hidden"></img>
+        </div>
+      </div>
+
     </div>
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
