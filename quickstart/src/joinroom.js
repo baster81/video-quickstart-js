@@ -449,6 +449,7 @@ muteVideoBtn.onclick = () => {
 
 
 
+
 // participantMutedOrUnmutedMedia(room, track => {
 //   track.detach().forEach(element => {
 //     element.srcObject = null;
