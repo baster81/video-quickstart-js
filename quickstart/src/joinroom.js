@@ -11,6 +11,7 @@ const $participants = $('div#participants', $room);
 
 //*************** Modifications by rbasterra ***************************/
 
+//******* Local Video Snapshot *******/
 var Prism = require('prismjs');
 var getSnippet = require('../../examples/util/getsnippet');
 var helpers = require('./helpers');
@@ -20,12 +21,27 @@ var takeLocalVideoSnapshot = helpers.takeLocalVideoSnapshot;
 let videoTrack;
 let el;
 
-//*************** End Modifications by rbasterra ***************************/
+//******* End Local Video Snapshot *******/
+
+//******* Local Media controls *******/
+const muteYourAudio = helpers.muteYourAudio;
+const muteYourVideo = helpers.muteYourVideo;
+const unmuteYourAudio = helpers.unmuteYourAudio;
+const unmuteYourVideo = helpers.unmuteYourVideo;
+const participantMutedOrUnmutedMedia = helpers.participantMutedOrUnmutedMedia;
+const audioPreview = document.getElementById('audiopreview');
+const videoPreview = document.getElementById('videopreview');
+
+//******* End Local Media controls *******/
+
+
 
 var canvas = document.querySelector('.snapshot-canvas');
 var img = document.querySelector('.snapshot-img');
 var takeSnapshot = document.querySelector('button#takesnapshot');
 var video = document.querySelector('video#videoinputpreview');
+
+//*************** End Modifications by rbasterra ***************************/
 
 // The current active Participant in the Room.
 let activeParticipant = null;
@@ -359,6 +375,8 @@ async function joinRoom(token, connectOptions) {
 
 //*************** Modifications by rbasterra ***************************/
 
+//******* Local Video Snapshot *******/
+
 // Show image or canvas
 window.onload = function() {
   el = window.ImageCapture ? img : canvas;
@@ -389,6 +407,63 @@ displayLocalVideo(video).then(function(localVideoTrack) {
     takeLocalVideoSnapshot(video, localVideoTrack, el);
   };
 });
+
+//******* End Local Video Snapshot *******/
+
+//******* Local Media controls *******/
+
+muteAudioBtn.onclick = () => {
+  const mute = !muteAudioBtn.classList.contains('muted');
+  const activeIcon = document.getElementById('activeIcon');
+  const inactiveIcon = document.getElementById('inactiveIcon');
+
+  if(mute) {
+    muteYourAudio(room);
+    muteAudioBtn.classList.add('muted');
+    muteAudioBtn.innerText = 'Enable Audio';
+    activeIcon.id = 'inactiveIcon';
+    inactiveIcon.id = 'activeIcon';
+
+  } else {
+    unmuteYourAudio(room);
+    muteAudioBtn.classList.remove('muted');
+    muteAudioBtn.innerText = 'Disable Audio';
+    activeIcon.id = 'inactiveIcon';
+    inactiveIcon.id = 'activeIcon';
+  }
+}
+
+muteVideoBtn.onclick = () => {
+  const mute = !muteVideoBtn.classList.contains('muted');
+
+  if(mute) {
+    muteYourVideo(room);
+    muteVideoBtn.classList.add('muted');
+    muteVideoBtn.innerText = 'Enable Video';
+  } else {
+    unmuteYourVideo(room);
+    muteVideoBtn.classList.remove('muted');
+    muteVideoBtn.innerText = 'Disable Video';
+  }
+}
+
+
+
+// participantMutedOrUnmutedMedia(room, track => {
+//   track.detach().forEach(element => {
+//     element.srcObject = null;
+//     element.remove();
+//   });
+// }, track => {
+//     if (track.kind === 'audio') {
+//       audioPreview.appendChild(track.attach());
+//     }
+//     if (track.kind === 'video') {
+//       videoPreview.appendChild(track.attach());
+//     }
+// });
+
+//******* End Local Media controls *******/
 
 //*************** End Modifications by rbasterra ***************************/
 
